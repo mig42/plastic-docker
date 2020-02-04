@@ -2,17 +2,16 @@ FROM ubuntu:trusty
 
 MAINTAINER Miguel González <mgonzalez@codicefactory.com>
 
-RUN apt-get update
-RUN apt-get install -y wget
+RUN sudo apt-get update
+RUN sudo apt-get install -y apt-transport-https
 
 RUN mkdir /conf
 RUN mkdir /logs
 RUN mkdir -p /db/sqlite
 
-RUN echo "deb http://www.plasticscm.com/plasticrepo/5.0/Ubuntu_14.04/ ./" >> /etc/apt/sources.list.d/plastic.list
-RUN echo "deb http://www.plasticscm.com/plasticrepo/5.4/Ubuntu_14.04/ ./" >> /etc/apt/sources.list.d/plastic.list
-RUN wget -q http://www.plasticscm.com/plasticrepo/5.0/Ubuntu_14.04/Release.key -O - | apt-key add -
-RUN wget -q http://www.plasticscm.com/plasticrepo/5.4/Ubuntu_14.04/Release.key -O - | apt-key add -
+RUN echo "deb https://www.plasticscm.com/plasticrepo/stable/ubuntu/ ./" | sudo tee /etc/apt/sources.list.d/plasticscm-stable.list
+RUN wget https://www.plasticscm.com/plasticrepo/stable/ubuntu/Release.key -O - | sudo apt-key add -
+RUN sudo apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -q update && apt-get install -y -q plasticscm-client plasticscm-server && plasticsd stop
 
