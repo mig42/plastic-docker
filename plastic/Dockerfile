@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
 
-MAINTAINER Miguel González <mgonzalez@codicefactory.com>
+MAINTAINER Luaay luaay@impactmultimedia.com.au
 
 RUN sudo apt-get update
 RUN sudo apt-get install -y apt-transport-https
